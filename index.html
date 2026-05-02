@@ -33,20 +33,21 @@
   }
 
   /* поділки */
-  .mark {
-    position: absolute;
-    width: 2px;
-    height: 10px;
-    background: rgba(0,0,0,0.4);
-    top: 0;
-    left: 50%;
-    transform-origin: center 110px;
-  }
+.mark {
+  position: absolute;
+  width: 2px;
+  height: 12px;
+  background: rgba(0,0,0,0.5);
+  top: 0;
+  left: 50%;
+  transform-origin: center 110px;
+}
 
-  .mark.big {
-    height: 16px;
-    background: rgba(0,0,0,0.9);
-  }
+.mark.big {
+  width: 3px;
+  height: 18px;
+  background: rgba(0,0,0,0.9);
+}
 
   /* стрілки */
   .hand {
@@ -92,15 +93,16 @@
 const clock = document.getElementById("clock");
 
 /* створення поділок */
-for (let i = 0; i < 60; i++) {
+for (let i = 0; i < 12; i++) {
   const mark = document.createElement("div");
   mark.classList.add("mark");
 
-  if (i % 5 === 0) {
+  // 12, 3, 6, 9
+  if (i % 3 === 0) {
     mark.classList.add("big");
   }
 
-  mark.style.transform = `translateX(-50%) rotate(${i * 6}deg)`;
+  mark.style.transform = `translateX(-50%) rotate(${i * 30}deg)`;
   clock.appendChild(mark);
 }
 
