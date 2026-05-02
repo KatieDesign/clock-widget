@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Clock</title>
+<style>
+  body {
+    margin: 0;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .clock {
+    width: 200px;
+    height: 200px;
+    border: 4px solid #000;
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom;
+    transform: translateX(-50%);
+    background: black;
+  }
+
+  .hour {
+    width: 6px;
+    height: 50px;
+  }
+
+  .minute {
+    width: 4px;
+    height: 70px;
+  }
+
+  .second {
+    width: 2px;
+    height: 90px;
+    background: red;
+  }
+</style>
+</head>
+<body>
+<div class="clock">
+  <div class="hand hour" id="hour"></div>
+  <div class="hand minute" id="minute"></div>
+  <div class="hand second" id="second"></div>
+</div>
+
+<script>
+function updateClock() {
+  const now = new Date();
+  const sec = now.getSeconds();
+  const min = now.getMinutes();
+  const hr = now.getHours();
+
+  document.getElementById('second').style.transform =
+    `translateX(-50%) rotate(${sec * 6}deg)`;
+
+  document.getElementById('minute').style.transform =
+    `translateX(-50%) rotate(${min * 6}deg)`;
+
+  document.getElementById('hour').style.transform =
+    `translateX(-50%) rotate(${hr * 30 + min * 0.5}deg)`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+</body>
+</html>
