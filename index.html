@@ -2,7 +2,8 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
-<title>Clock</title>
+<title>Clock Widget</title>
+
 <style>
   body {
     margin: 0;
@@ -33,21 +34,21 @@
   }
 
   /* поділки */
-.mark {
-  position: absolute;
-  width: 2px;
-  height: 12px;
-  background: rgba(0,0,0,0.5);
-  top: 0;
-  left: 50%;
-  transform-origin: center 110px;
-}
+  .mark {
+    position: absolute;
+    width: 2px;
+    height: 12px;
+    background: rgba(0,0,0,0.4);
+    top: 0;
+    left: 50%;
+    transform-origin: center 110px;
+  }
 
-.mark.big {
-  width: 3px;
-  height: 18px;
-  background: rgba(0,0,0,0.9);
-}
+  .mark.big {
+    width: 3px;
+    height: 18px;
+    background: rgba(0,0,0,0.9);
+  }
 
   /* стрілки */
   .hand {
@@ -78,8 +79,21 @@
     background: black;
     opacity: 0.8;
   }
+
+  /* цифровий час */
+  .time {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-family: sans-serif;
+    color: rgba(0,0,0,0.7);
+    letter-spacing: 0.5px;
+  }
 </style>
 </head>
+
 <body>
 
 <div class="clock" id="clock">
@@ -87,12 +101,13 @@
   <div class="hand minute" id="minute"></div>
   <div class="hand second" id="second"></div>
   <div class="center"></div>
+  <div class="time" id="time">00:00</div>
 </div>
 
 <script>
 const clock = document.getElementById("clock");
 
-/* створення поділок */
+/* 12 годинних поділок */
 for (let i = 0; i < 12; i++) {
   const mark = document.createElement("div");
   mark.classList.add("mark");
@@ -106,7 +121,7 @@ for (let i = 0; i < 12; i++) {
   clock.appendChild(mark);
 }
 
-/* плавний годинник */
+/* годинник */
 function updateClock() {
   const now = new Date();
 
@@ -123,6 +138,11 @@ function updateClock() {
 
   document.getElementById("hour").style.transform =
     `translateX(-50%) rotate(${hr * 30}deg)`;
+
+  /* цифровий час */
+  const pad = (n) => String(n).padStart(2, "0");
+  document.getElementById("time").textContent =
+    `${pad(now.getHours())}:${pad(now.getMinutes())}`;
 
   requestAnimationFrame(updateClock);
 }
